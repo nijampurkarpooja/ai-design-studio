@@ -2,7 +2,7 @@
 
 :root {
   /* Base colors */
-  --background: #1e1624;
+  --background: #110b15;
   --foreground: #ffffff;
 
   /* Text colors */
@@ -24,6 +24,25 @@
   /* UI colors */
   --border: rgba(255, 255, 255, 0.1);
   --hover: rgba(168, 85, 247, 0.15);
+
+  /* Gradient colors */
+  --gradient-start: #1e1624;
+  --gradient-mid: #2a1f3a;
+  --gradient-end: #1e1624;
+
+  /* Orb colors with opacity */
+  --orb-purple: rgba(168, 85, 247, 0.2);
+  --orb-pink: rgba(236, 72, 153, 0.2);
+
+  /* Badge colors */
+  --badge-border: rgba(168, 85, 247, 0.2);
+  --badge-bg: rgba(168, 85, 247, 0.1);
+
+  /* Button colors */
+  --button-secondary-bg: rgba(42, 31, 58, 0.5);
+  --button-secondary-hover-border: rgba(168, 85, 247, 0.3);
+  --button-secondary-hover-bg: rgba(168, 85, 247, 0.1);
+  --button-shadow: rgba(168, 85, 247, 0.5);
 }
 
 @theme inline {
