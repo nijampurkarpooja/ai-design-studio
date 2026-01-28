@@ -1,9 +1,9 @@
 "use client";
 
+import { Button } from "@/app/components/ui/button";
 import type { HeroData } from "@/types/homepage";
 import { motion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
 
 interface HeroSectionProps {
   data: HeroData;
@@ -72,7 +72,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                 width={1200}
                 height={400}
                 priority
-                className="w-full h-auto"
+                className="w-full h-auto max-w-3xl mx-auto"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
               />
             </div>
@@ -106,20 +106,13 @@ export function HeroSection({ data }: HeroSectionProps) {
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            <Link
+            <Button
               href={data.primaryCta.href}
-              className="group relative block h-12 sm:h-14 w-full sm:w-auto overflow-hidden rounded-lg bg-linear-to-r from-accent-purple to-accent-pink px-6 sm:px-8 font-medium text-foreground transition-all duration-300 hover:shadow-[0_0_40px_rgba(168,85,247,0.6)]"
+              variant="primary"
+              className="w-full sm:w-auto"
             >
-              <span className="relative z-10 flex h-full items-center justify-center text-sm sm:text-base">
-                {data.primaryCta.text}
-              </span>
-              <motion.div
-                className="absolute inset-0 bg-linear-to-r from-accent-pink to-accent-purple"
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-            </Link>
+              {data.primaryCta.text}
+            </Button>
           </motion.div>
 
           {/* Secondary CTA - Enhanced hover effects */}
@@ -128,14 +121,13 @@ export function HeroSection({ data }: HeroSectionProps) {
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            <Link
+            <Button
               href={data.secondaryCta.href}
-              className="block h-12 sm:h-14 w-full sm:w-auto rounded-lg border border-border bg-button-secondary-bg px-6 sm:px-8 font-medium text-text-secondary backdrop-blur-sm transition-all duration-300 hover:border-button-secondary-hover-border hover:bg-button-secondary-hover-bg hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]"
+              variant="secondary"
+              className="w-full sm:w-auto"
             >
-              <span className="flex h-full items-center justify-center text-sm sm:text-base">
-                {data.secondaryCta.text}
-              </span>
-            </Link>
+              {data.secondaryCta.text}
+            </Button>
           </motion.div>
         </motion.div>
       </div>
