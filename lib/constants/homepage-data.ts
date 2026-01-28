@@ -6,145 +6,168 @@ import type {
   IntroData,
   Logo,
   NetworkCard,
-} from '@/types/homepage';
+} from "@/types/homepage";
+
+
 
 export const heroData: HeroData = {
-  headlineImage: '/images/hero/hero_headline.png',
-  subtitle: 'An invite-only private community for designers who want to build the future with AI.',
+  headlineImage: "/images/hero/hero_headline.png",
+  subtitle:
+    "We're an AI-first design studio creating exceptional digital experiences. We combine human creativity with AI-powered tools to deliver innovative solutions faster and smarter.",
   primaryCta: {
-    text: 'Enroll in AI Studio',
-    href: '#',
+    text: "Start a project",
+    href: "#",
   },
   secondaryCta: {
-    text: 'Join waitlist for a new program',
-    href: '#',
+    text: "Explore our work",
+    href: "#",
+  },
+  featured: {
+    kicker: "AI-Powered Design",
+    title: "Where creativity meets artificial intelligence.",
+    description:
+      "We leverage cutting-edge AI tools to accelerate design workflows, explore more possibilities, and deliver exceptional results. Our studio specializes in product design, brand identity, and digital experiences that push boundaries.",
+    bullets: [
+      "AI-enhanced design workflows that save time and unlock creativity",
+      "Experienced team working with leading brands and startups",
+      "Proven track record of innovative, user-centered solutions",
+    ],
+    image: {
+      src: "/images/intro/founders.jpg",
+      alt: "Studio team",
+    },
   },
 };
 
 export const introData: IntroData = {
-  heading: 'Welcome to an AI-first studio',
-  highlightedText: 'AI-first studio',
+  heading: "Design reimagined with AI",
+  highlightedText: "AI",
   paragraphs: [
-    'This is a place where designers come together to learn, create, and push the boundaries of what\'s possible with AI-assisted design.',
-    'Founded by experienced designers who understand both the craft and the future of design.',
+    "We're not just using AI tools—we're rethinking the entire design process. By integrating AI at every stage, from ideation to execution, we create more innovative solutions in less time.",
+    "Our approach combines the best of human intuition and AI capabilities. We use AI to handle repetitive tasks, generate variations, and explore possibilities, while our designers focus on strategy, user experience, and creative direction.",
+  ],
+  bullets: [
+    "AI-powered ideation and rapid prototyping",
+    "Intelligent design systems and component libraries",
+    "Data-driven insights that inform every decision",
   ],
   image: {
-    src: '/images/intro/founder.jpg',
-    alt: 'Founder portrait',
+    src: "/images/intro/founders.jpg",
+    alt: "AI design process",
   },
 };
 
 export const logos: Logo[] = [
-  { src: '/images/logos/company1.svg', alt: 'Company 1', href: '#' },
-  { src: '/images/logos/company2.svg', alt: 'Company 2', href: '#' },
-  { src: '/images/logos/company3.svg', alt: 'Company 3', href: '#' },
-  { src: '/images/logos/company4.svg', alt: 'Company 4', href: '#' },
-  { src: '/images/logos/company5.svg', alt: 'Company 5', href: '#' },
+  { src: "/images/logos/company1.svg", alt: "Client Company 1", href: "#" },
+  { src: "/images/logos/company2.svg", alt: "Client Company 2", href: "#" },
+  { src: "/images/logos/company3.svg", alt: "Client Company 3", href: "#" },
+  { src: "/images/logos/company4.svg", alt: "Client Company 4", href: "#" },
+  { src: "/images/logos/company5.svg", alt: "Client Company 5", href: "#" },
 ];
 
 export const networkCards: NetworkCard[] = [
   {
-    title: 'Global Network',
-    description: 'Designers from around the world',
-    images: ['/images/profiles/profile1.jpg', '/images/profiles/profile2.jpg'],
+    title: "Design Team",
+    description: "Expert designers and AI specialists",
+    images: ["/images/profiles/profile1.jpg", "/images/profiles/profile2.jpg"],
   },
   {
-    title: 'Mentor Network',
-    description: 'Experienced mentors ready to guide you',
-    images: ['/images/profiles/mentor1.jpg', '/images/profiles/mentor2.jpg'],
+    title: "Client Partners",
+    description: "Trusted by innovative companies worldwide",
+    images: ["/images/profiles/mentor1.jpg", "/images/profiles/mentor2.jpg"],
   },
 ];
 
 export const teamCards: ImageCard[] = [
   {
     image: {
-      src: '/images/team/team1.jpg',
-      alt: 'Team photo 1',
+      src: "/images/team/team1.jpg",
+      alt: "Studio workspace",
     },
-    location: 'San Francisco',
-    year: '2024',
-    caption: 'Our amazing team working together',
+    location: "San Francisco",
+    year: "2024",
+    caption: "Our AI-first design studio",
   },
   {
     image: {
-      src: '/images/team/team2.jpg',
-      alt: 'Team photo 2',
+      src: "/images/team/team2.jpg",
+      alt: "Design collaboration",
     },
-    location: 'New York',
-    year: '2024',
-    caption: 'Collaboration in action',
+    location: "New York",
+    year: "2024",
+    caption: "Human-AI collaboration in action",
   },
   {
     image: {
-      src: '/images/team/team3.jpg',
-      alt: 'Team photo 3',
+      src: "/images/team/team3.jpg",
+      alt: "Remote studio",
     },
-    location: 'Remote',
-    year: '2024',
-    caption: 'Global connections',
+    location: "Remote",
+    year: "2024",
+    caption: "Global team, unified vision",
   },
 ];
 
 export const aiVisionCards: ImageCard[] = [
   {
     image: {
-      src: '/images/ai-vision/vision1.jpg',
-      alt: 'AI vision example 1',
+      src: "/images/ai-vision/vision1.jpg",
+      alt: "AI design workflow",
     },
-    location: 'Studio',
-    year: '2024',
-    caption: 'AI-assisted creativity in practice',
+    location: "Studio",
+    year: "2024",
+    caption: "AI-powered design workflows",
   },
   {
     image: {
-      src: '/images/ai-vision/vision2.jpg',
-      alt: 'AI vision example 2',
+      src: "/images/ai-vision/vision2.jpg",
+      alt: "Rapid prototyping",
     },
-    location: 'Workshop',
-    year: '2024',
-    caption: 'Exploring new possibilities',
+    location: "Workshop",
+    year: "2024",
+    caption: "Rapid iteration and prototyping",
   },
   {
     image: {
-      src: '/images/ai-vision/vision3.jpg',
-      alt: 'AI vision example 3',
+      src: "/images/ai-vision/vision3.jpg",
+      alt: "AI design tools",
     },
-    location: 'Lab',
-    year: '2024',
-    caption: 'Innovation at work',
+    location: "Lab",
+    year: "2024",
+    caption: "Cutting-edge AI design tools",
   },
 ];
 
 export const insights: InsightCard[] = [
-  { text: 'AI is transforming how designers work, not replacing them.' },
-  { text: 'The best designs combine human creativity with AI efficiency.' },
-  { text: 'Learning AI tools is now essential for modern designers.' },
-  { text: 'Design thinking remains crucial, even with AI assistance.' },
-  { text: 'The future belongs to designers who embrace AI.' },
-  { text: 'AI can handle repetitive tasks, freeing designers for creativity.' },
-  { text: 'Understanding AI capabilities opens new design possibilities.' },
-  { text: 'Collaboration between designers and AI creates better outcomes.' },
+  { text: "AI amplifies human creativity, it doesn't replace it." },
+  { text: "We use AI to explore more possibilities, faster." },
+  { text: "Every project starts with understanding the problem, not the tool." },
+  { text: "The best designs emerge from human-AI collaboration." },
+  { text: "AI handles iteration, designers handle vision." },
+  { text: "We're building the future of design, today." },
+  { text: "Speed and quality aren't trade-offs with AI-first design." },
+  { text: "Our studio proves AI and creativity are perfect partners." },
 ];
 
 export const footerData: FooterData = {
-  preFooterText: 'Ready to start your journey?',
+  preFooterText: "Ready to transform your design?",
   cta: {
-    text: 'Join waitlist on Cursor',
-    href: '#',
+    text: "Start a project",
+    href: "#",
   },
-  programInfo: 'AI Studio Program 2024',
-  stats: '10,000+ designers • 50+ countries • 100+ mentors',
+  programInfo: "AI-First Design Studio",
+  stats: "50+ projects • 30+ clients • 100% AI-enhanced",
   navLinks: [
-    { text: 'About', href: '/about' },
-    { text: 'Programs', href: '/programs' },
-    { text: 'Community', href: '/community' },
-    { text: 'Contact', href: '/contact' },
+    { text: "About", href: "/about" },
+    { text: "Work", href: "/work" },
+    { text: "Services", href: "/services" },
+    { text: "Contact", href: "/contact" },
   ],
   socialLinks: [
-    { name: 'Twitter', href: '#', icon: 'twitter' },
-    { name: 'LinkedIn', href: '#', icon: 'linkedin' },
-    { name: 'Instagram', href: '#', icon: 'instagram' },
-    { name: 'YouTube', href: '#', icon: 'youtube' },
+    { name: "Twitter", href: "#", icon: "twitter" },
+    { name: "LinkedIn", href: "#", icon: "linkedin" },
+    { name: "Instagram", href: "#", icon: "instagram" },
+    { name: "Dribbble", href: "#", icon: "dribbble" },
   ],
-  copyright: '© 2024 10k Designers. All rights reserved.',
+  copyright: "© 2024 AI Design Studio. All rights reserved.",
 };
