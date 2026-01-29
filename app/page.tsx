@@ -1,5 +1,4 @@
 import { AIVisionSection } from "@/components/homepage/ai-vision-section";
-import { FooterSection } from "@/components/homepage/footer-section";
 import { HeroSection } from "@/components/homepage/hero-section";
 import { InsightsSection } from "@/components/homepage/insights-section";
 import { IntroSection } from "@/components/homepage/intro-section";
@@ -11,7 +10,6 @@ import { StatsSection } from "@/components/homepage/stats-section";
 import { TeamSection } from "@/components/homepage/team-section";
 import {
   aiVisionSectionData,
-  footerData,
   heroData,
   insightsSectionData,
   introData,
@@ -55,9 +53,6 @@ export default function Home() {
 
       {/* Insights: What we've learned - thought leadership */}
       <InsightsSection data={insightsSectionData} />
-
-      {/* Footer: CTA, navigation and information */}
-      <FooterSection data={footerData} />
     </main>
   );
 }

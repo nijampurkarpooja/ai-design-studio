@@ -1,7 +1,8 @@
 import { AnimatedOrbsBackground } from "@/app/components/background/animated-orbs";
+import { FooterSection } from "@/app/components/layout/site-footer";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Syne } from "next/font/google";
-import { LayoutWithHeader } from "./components/layout/layout-with-header";
+import { SiteHeader } from "./components/layout/site-header";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -42,10 +43,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} antialiased`}
       >
-        <LayoutWithHeader>
-          <AnimatedOrbsBackground />
-          {children}
-        </LayoutWithHeader>
+        <SiteHeader />
+        <AnimatedOrbsBackground />
+        {children}
+        <FooterSection />
       </body>
     </html>
   );

@@ -2,7 +2,6 @@ import type {
   AIVisionSectionData,
   ClientLogosData,
   ConcernsSectionData,
-  FooterData,
   HeroData,
   ImageCard,
   InsightCard,
@@ -213,36 +212,6 @@ export const insightsSectionData: InsightsSectionData = {
     { text: "Quality and speed aren't trade-offs anymore." },
     { text: "The future belongs to studios that adapt, not resist." },
   ],
-};
-
-export const footerData: FooterData = {
-  eyebrow: "Ready to get started?",
-  heading: "Let's create something",
-  highlightedText: "extraordinary together",
-  description:
-    "Launch, rebrand, or get strategic design guidance. We're here to help.",
-  primaryCta: {
-    text: "Start a project",
-    href: "#",
-  },
-  secondaryCta: {
-    text: "View our work",
-    href: "#",
-  },
-  programInfo: "Lumen · 2026",
-  stats: "50+ projects delivered. 98% client satisfaction.",
-  navLinks: [
-    { text: "Work", href: "/work" },
-    { text: "Services", href: "/services" },
-    { text: "Contact", href: "/contact" },
-  ],
-  socialLinks: [
-    { name: "Twitter", href: "#", icon: "twitter" },
-    { name: "LinkedIn", href: "#", icon: "linkedin" },
-    { name: "Instagram", href: "#", icon: "instagram" },
-    { name: "Dribbble", href: "#", icon: "dribbble" },
-  ],
-  copyright: "© 2026 Lumen. All rights reserved.",
 };
 
 export const storyData: StoryData = {

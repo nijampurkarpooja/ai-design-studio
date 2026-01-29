@@ -1,18 +1,41 @@
 "use client";
 
-import clsx from "clsx";
 import { motion } from "motion/react";
 import Link from "next/link";
 
 import { Button } from "@/app/components/ui/button";
 import { HighlightedText } from "@/app/components/ui/highlighted-text";
 import { SectionContainer } from "@/app/components/ui/section-container";
-import type { FooterData } from "@/types/homepage";
 
-interface FooterSectionProps {
-  data: FooterData;
-  className?: string;
-}
+const footerData = {
+  eyebrow: "Ready to get started?",
+  heading: "Let's create something",
+  highlightedText: "extraordinary together",
+  description:
+    "Launch, rebrand, or get strategic design guidance. We're here to help.",
+  primaryCta: {
+    text: "Start a project",
+    href: "#",
+  },
+  secondaryCta: {
+    text: "View our work",
+    href: "#",
+  },
+  programInfo: "Lumen · 2026",
+  stats: "50+ projects delivered. 98% client satisfaction.",
+  navLinks: [
+    { text: "Work", href: "/work" },
+    { text: "Services", href: "/services" },
+    { text: "Contact", href: "/contact" },
+  ],
+  socialLinks: [
+    { name: "Twitter", href: "#", icon: "twitter" },
+    { name: "LinkedIn", href: "#", icon: "linkedin" },
+    { name: "Instagram", href: "#", icon: "instagram" },
+    { name: "Dribbble", href: "#", icon: "dribbble" },
+  ],
+  copyright: "© 2026 Lumen. All rights reserved.",
+};
 
 function SocialIcon({ name, href }: { name: string; href: string }) {
   const iconMap: Record<string, React.ReactNode> = {
@@ -108,12 +131,11 @@ function SocialIcon({ name, href }: { name: string; href: string }) {
   );
 }
 
-export function FooterSection({ data, className }: FooterSectionProps) {
+export function FooterSection() {
   return (
-    <footer className={clsx("relative border-t border-card-border", className)}>
+    <footer className={"relative border-t border-card-border"}>
       <SectionContainer innerClassName="py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-4xl">
-          {/* CTA block (merged from CTA section) */}
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -121,26 +143,26 @@ export function FooterSection({ data, className }: FooterSectionProps) {
             viewport={{ once: true, amount: 0.3 }}
             className="text-center"
           >
-            {data.eyebrow ? (
+            {footerData.eyebrow ? (
               <p className="mb-4 text-xs font-medium tracking-[0.22em] text-text-muted uppercase">
-                {data.eyebrow}
+                {footerData.eyebrow}
               </p>
             ) : null}
 
             <h2 className="mb-6 text-3xl font-semibold leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-              {data.highlightedText ? (
+              {footerData.highlightedText ? (
                 <HighlightedText
-                  text={data.heading}
-                  highlight={data.highlightedText}
+                  text={footerData.heading}
+                  highlight={footerData.highlightedText}
                 />
               ) : (
-                data.heading
+                footerData.heading
               )}
             </h2>
 
-            {data.description ? (
+            {footerData.description ? (
               <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg">
-                {data.description}
+                {footerData.description}
               </p>
             ) : null}
 
@@ -151,28 +173,28 @@ export function FooterSection({ data, className }: FooterSectionProps) {
                 transition={{ type: "spring", stiffness: 420, damping: 18 }}
               >
                 <Button
-                  href={data.primaryCta.href}
+                  href={footerData.primaryCta.href}
                   variant="primary"
                   size="lg"
                   className="w-full sm:w-auto"
                 >
-                  {data.primaryCta.text}
+                  {footerData.primaryCta.text}
                 </Button>
               </motion.div>
 
-              {data.secondaryCta?.text ? (
+              {footerData.secondaryCta?.text ? (
                 <Link
-                  href={data.secondaryCta.href}
+                  href={footerData.secondaryCta.href}
                   className="text-sm text-text-muted transition-colors hover:text-text-secondary sm:text-base"
                 >
-                  {data.secondaryCta.text}
+                  {footerData.secondaryCta.text}
                 </Link>
               ) : null}
             </div>
 
             <div className="mb-12 space-y-2 text-sm text-text-muted">
-              <p>{data.programInfo}</p>
-              <p>{data.stats}</p>
+              <p>{footerData.programInfo}</p>
+              <p>{footerData.stats}</p>
             </div>
           </motion.div>
 
@@ -185,7 +207,7 @@ export function FooterSection({ data, className }: FooterSectionProps) {
             aria-label="Footer navigation"
             className="mb-8 flex flex-wrap items-center justify-center gap-6 text-sm"
           >
-            {data.navLinks.map((link) => (
+            {footerData.navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -204,10 +226,10 @@ export function FooterSection({ data, className }: FooterSectionProps) {
             viewport={{ once: true, amount: 0.3 }}
             className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between"
           >
-            <p className="text-xs text-text-muted">{data.copyright}</p>
+            <p className="text-xs text-text-muted">{footerData.copyright}</p>
 
             <div className="flex items-center gap-3">
-              {data.socialLinks.map((social) => (
+              {footerData.socialLinks.map((social) => (
                 <SocialIcon
                   key={social.name}
                   name={social.name}

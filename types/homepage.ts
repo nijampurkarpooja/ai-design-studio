@@ -93,21 +93,6 @@ export interface InsightCard {
   text: string;
 }
 
-export interface FooterData {
-  /** CTA block (merged from CTA section) */
-  eyebrow?: string;
-  heading: string;
-  highlightedText?: string;
-  description?: string;
-  primaryCta: { text: string; href: string };
-  secondaryCta?: { text: string; href: string };
-  programInfo: string;
-  stats: string;
-  navLinks: Array<{ text: string; href: string }>;
-  socialLinks: Array<{ name: string; href: string; icon: string }>;
-  copyright: string;
-}
-
 export interface StoryData {
   eyebrow?: string;
   heading: string;
