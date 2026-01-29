@@ -7,12 +7,131 @@ import type { HeroData } from "@/types/homepage";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface HeroSectionProps {
   data: HeroData;
 }
 
-function HeroFeaturedCard({ data }: { data: NonNullable<HeroData["featured"]> }) {
+const CHAR_DELAY_MS = 85;
+const HOLD_BEFORE_WHITE_MS = 250;
+const WHITE_TRANSITION_MS = 500;
+
+/** Split "Design, amplified." into two lines so words don't break. */
+function getHeadlineLines(headline: string): string[] {
+  const commaSpace = ", ";
+  const i = headline.indexOf(commaSpace);
+  if (i >= 0) {
+    return [headline.slice(0, i + 1), headline.slice(i + commaSpace.length)];
+  }
+  return [headline];
+}
+
+function HeroHeadline({ headline }: { headline: string }) {
+  const lines = getHeadlineLines(headline);
+  const characters = headline.split("");
+  const lineRanges: [number, number][] = lines.map((line) => {
+    const start = headline.indexOf(line);
+    return [start, start + line.length];
+  });
+  const [phase, setPhase] = useState<"typewriter" | "white">("typewriter");
+
+  useEffect(() => {
+    const typewriterEnd =
+      characters.length * CHAR_DELAY_MS + HOLD_BEFORE_WHITE_MS;
+    const t = setTimeout(() => setPhase("white"), typewriterEnd);
+    return () => clearTimeout(t);
+  }, [characters.length]);
+
+  function renderCharacter(char: string, i: number) {
+    const charDisplay = char === " " ? "\u00A0" : char;
+    return (
+      <span key={`${i}-${char}`} className="relative inline-block">
+        <motion.span
+          className="inline-block bg-linear-to-r from-accent-purple via-accent-pink to-accent-purple bg-clip-text text-transparent"
+          style={{ WebkitBackgroundClip: "text", backgroundClip: "text" }}
+          initial={{ opacity: 0.35 }}
+          animate={{ opacity: phase === "typewriter" ? 1 : 0 }}
+          transition={{
+            duration: phase === "white" ? WHITE_TRANSITION_MS / 1000 : 0.25,
+            delay: phase === "typewriter" ? (i * CHAR_DELAY_MS) / 1000 : 0,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          {charDisplay}
+        </motion.span>
+        <motion.span
+          className="absolute left-0 top-0 inline-block text-white"
+          animate={{ opacity: phase === "white" ? 1 : 0 }}
+          transition={{
+            duration: WHITE_TRANSITION_MS / 1000,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          {charDisplay}
+        </motion.span>
+      </span>
+    );
+  }
+
+  return (
+    // for smaller mobiles (less than 480px), we use a smaller text size, use tailwind text-[2.5rem]
+    <h1
+      className="relative px-4 text-[2.5rem] font-extrabold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl"
+      style={{ fontFamily: "var(--font-syne), var(--font-geist-sans)" }}
+    >
+      {/* Gradient shadow — subtle drop shadow matching letter size, one per line */}
+      {/* <motion.span
+        aria-hidden
+        className="absolute inset-0 flex flex-col items-center justify-center px-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: phase === "white" ? 1 : 0 }}
+        transition={{
+          duration: WHITE_TRANSITION_MS / 1000,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        {lines.map((line, lineIdx) => (
+          <span
+            key={lineIdx}
+            className="block w-full translate-y-px text-center opacity-70"
+          >
+            <span
+              className="inline-block bg-linear-to-r from-accent-purple via-accent-pink to-accent-purple bg-clip-text text-transparent"
+              style={{
+                filter: "blur(1px)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+              }}
+            >
+              {line}
+            </span>
+          </span>
+        ))}
+      </motion.span> */}
+
+      {/* Visible text: two lines, no word split */}
+      <span className="relative flex flex-col items-center justify-center">
+        {lineRanges.map(([start, end], lineIdx) => (
+          <span
+            key={lineIdx}
+            className="inline-flex items-center justify-center"
+          >
+            {characters
+              .slice(start, end)
+              .map((char, j) => renderCharacter(char, start + j))}
+          </span>
+        ))}
+      </span>
+    </h1>
+  );
+}
+
+function HeroFeaturedCard({
+  data,
+}: {
+  data: NonNullable<HeroData["featured"]>;
+}) {
   return (
     <div className="mx-auto w-full max-w-6xl">
       <div className="overflow-hidden rounded-3xl border border-card-border bg-card-bg/70 shadow-[0_0_0_1px_rgba(168,85,247,0.12),0_0_60px_rgba(168,85,247,0.08)] backdrop-blur-sm">
@@ -59,11 +178,6 @@ export function HeroSection({ data }: HeroSectionProps) {
       className="overflow-hidden border-b border-white/5"
       innerClassName="relative py-28 sm:py-36 lg:py-44"
     >
-      {/* Soft gradient band so hero extends theme but stands out from content below */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-transparent via-accent-purple/10 to-accent-purple/5"
-        aria-hidden
-      />
       <div className="relative z-10">
         <div className="mx-auto w-full max-w-5xl text-center">
           {data.eyebrow ? (
@@ -83,18 +197,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="relative mb-8 sm:mb-10"
           >
-            <h1
-              className="px-4 text-5xl font-extrabold leading-[1.05] tracking-tight text-text-primary drop-shadow-[0_0_40px_rgba(168,85,247,0.15)] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl"
-              style={{ fontFamily: "var(--font-syne), var(--font-geist-sans)" }}
-            >
-              <span className="bg-linear-to-b from-white via-white to-white/90 bg-clip-text text-transparent">
-                {data.headline}
-              </span>
-            </h1>
-            <div
-              className="mx-auto mt-4 h-1 w-24 rounded-full bg-linear-to-r from-accent-purple via-accent-pink to-accent-purple opacity-90 sm:mt-5 sm:h-1.5 sm:w-28"
-              aria-hidden
-            />
+            <HeroHeadline headline={data.headline} />
           </motion.div>
 
           <motion.p
