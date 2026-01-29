@@ -31,7 +31,7 @@ export const heroData: HeroData = {
   },
   secondaryCta: {
     text: "View our work",
-    href: "#",
+    href: "#portfolio",
   },
 };
 
@@ -234,8 +234,6 @@ export const footerData: FooterData = {
   navLinks: [
     { text: "Work", href: "/work" },
     { text: "Services", href: "/services" },
-    { text: "Process", href: "/process" },
-    { text: "About", href: "/about" },
     { text: "Contact", href: "/contact" },
   ],
   socialLinks: [

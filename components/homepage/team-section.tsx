@@ -82,14 +82,6 @@ export function TeamSection({ data, className }: TeamSectionProps) {
             id={headingId}
             className="text-3xl font-semibold leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
           >
-            {/* {data.highlightedText ? (
-              <HighlightedText
-                text={data.heading}
-                highlight={data.highlightedText}
-              />
-            ) : (
-              data.heading
-            )} */}
             {data.highlightedText ? (
               <HighlightedText
                 text={data.heading}

@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { HighlightedText } from "@/app/components/ui/highlighted-text";
 import { SectionContainer } from "@/app/components/ui/section-container";
-import type { StatCard, StatsSectionData } from "@/types/homepage";
+import type { StatsSectionData } from "@/types/homepage";
 
 interface StatsSectionProps {
   data: StatsSectionData;
@@ -36,7 +36,9 @@ function AnimatedCounter({ value }: { value: string }) {
             const elapsed = Date.now() - startTime;
             const progress = Math.min(elapsed / duration, 1);
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-            const current = Math.round(startValue + (numericValue - startValue) * easeOutQuart);
+            const current = Math.round(
+              startValue + (numericValue - startValue) * easeOutQuart
+            );
             setDisplayValue(current);
 
             if (progress < 1) {
@@ -104,7 +106,7 @@ export function StatsSection({ data, className }: StatsSectionProps) {
             )}
           </h2>
 
-          <div className="mt-8 flex flex-wrap items-stretch justify-center gap-x-10 gap-y-6 border-y border-card-border py-8 sm:mt-10 sm:gap-x-14 sm:py-10 lg:gap-x-16">
+          <div className="mt-8 grid grid-cols-2 items-stretch justify-center gap-x-10 gap-y-6 border-y border-card-border py-8 md:flex sm:mt-10 sm:gap-x-14 sm:py-10 lg:gap-x-16">
             {data.stats.map((stat, index) => (
               <motion.div
                 key={`${stat.label}-${index}`}

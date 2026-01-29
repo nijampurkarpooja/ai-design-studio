@@ -80,37 +80,6 @@ function HeroHeadline({ headline }: { headline: string }) {
       className="relative px-4 text-[2.5rem] font-extrabold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl"
       style={{ fontFamily: "var(--font-syne), var(--font-geist-sans)" }}
     >
-      {/* Gradient shadow — subtle drop shadow matching letter size, one per line */}
-      {/* <motion.span
-        aria-hidden
-        className="absolute inset-0 flex flex-col items-center justify-center px-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: phase === "white" ? 1 : 0 }}
-        transition={{
-          duration: WHITE_TRANSITION_MS / 1000,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
-        {lines.map((line, lineIdx) => (
-          <span
-            key={lineIdx}
-            className="block w-full translate-y-px text-center opacity-70"
-          >
-            <span
-              className="inline-block bg-linear-to-r from-accent-purple via-accent-pink to-accent-purple bg-clip-text text-transparent"
-              style={{
-                filter: "blur(1px)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-              }}
-            >
-              {line}
-            </span>
-          </span>
-        ))}
-      </motion.span> */}
-
-      {/* Visible text: two lines, no word split */}
       <span className="relative flex flex-col items-center justify-center">
         {lineRanges.map(([start, end], lineIdx) => (
           <span
@@ -176,7 +145,7 @@ export function HeroSection({ data }: HeroSectionProps) {
   return (
     <SectionContainer
       className="overflow-hidden border-b border-white/5"
-      innerClassName="relative py-28 sm:py-36 lg:py-44"
+      innerClassName="relative sm:py-28 lg:py-44"
     >
       <div className="relative z-10">
         <div className="mx-auto w-full max-w-5xl text-center">
@@ -213,7 +182,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col items-center justify-center gap-4 px-4 sm:flex-row sm:gap-6"
+            className="flex flex-wrap items-center justify-center gap-8 px-4"
           >
             <motion.div
               whileHover={{ scale: 1.04, y: -1 }}
@@ -233,6 +202,13 @@ export function HeroSection({ data }: HeroSectionProps) {
               <Link
                 href={data.secondaryCta.href}
                 className="text-sm text-text-muted transition-colors hover:text-text-secondary sm:text-base"
+                onClick={(e) => {
+                  const target = document.querySelector(data.secondaryCta.href);
+                  if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
               >
                 {data.secondaryCta.text}
               </Link>

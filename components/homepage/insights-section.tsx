@@ -13,7 +13,7 @@ interface InsightsSectionProps {
   className?: string;
 }
 
-const MARQUEE_DURATION = 40;
+const MARQUEE_DURATION = 60;
 const MARQUEE_PERCENT_PER_SEC = 50 / MARQUEE_DURATION;
 
 function InsightsMarquee({ insights }: { insights: { text: string }[] }) {

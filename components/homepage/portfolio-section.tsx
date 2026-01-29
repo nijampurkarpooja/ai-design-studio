@@ -14,7 +14,15 @@ interface PortfolioSectionProps {
   className?: string;
 }
 
-function PortfolioCard({ card, index }: { card: ImageCard; index: number }) {
+function PortfolioCard({
+  card,
+  index,
+  colSpan,
+}: {
+  card: ImageCard;
+  index: number;
+  colSpan: number;
+}) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -25,7 +33,10 @@ function PortfolioCard({ card, index }: { card: ImageCard; index: number }) {
         delay: 0.08 + index * 0.08,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="group"
+      className={clsx(
+        "group",
+        colSpan === 2 ? "sm:col-span-2 lg:col-span-1" : ""
+      )}
     >
       <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_0_1px_rgba(168,85,247,0.2),0_0_40px_rgba(168,85,247,0.1)]">
         <div className="relative h-64 w-full overflow-hidden border-b border-card-border bg-card-bg transition-transform duration-300 group-hover:scale-105 sm:h-72">
@@ -59,6 +70,7 @@ export function PortfolioSection({ data, className }: PortfolioSectionProps) {
     <SectionContainer
       className={clsx(className)}
       innerClassName="py-16 sm:py-20 lg:py-28"
+      id="portfolio"
     >
       <div aria-labelledby={headingId} className="mx-auto max-w-6xl">
         <motion.div
@@ -95,14 +107,21 @@ export function PortfolioSection({ data, className }: PortfolioSectionProps) {
           ) : null}
         </motion.div>
 
+        {/* for sm - if last child is odd - make it occupy 2 columns */}
         <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
-          {data.cards.map((card, index) => (
-            <PortfolioCard
-              key={`${card.image.src}-${card.location}-${card.year}`}
-              card={card}
-              index={index}
-            />
-          ))}
+          {data.cards.map((card, index) => {
+            const isLast = index === data.cards.length - 1;
+            const isOdd = (index + 1) % 2 !== 0;
+            const colSpan = isLast && isOdd ? 2 : 1;
+            return (
+              <PortfolioCard
+                key={`${card.image.src}-${card.location}-${card.year}`}
+                card={card}
+                index={index}
+                colSpan={colSpan}
+              />
+            );
+          })}
         </div>
       </div>
     </SectionContainer>
