@@ -3,7 +3,6 @@
 import clsx from "clsx";
 import { motion } from "motion/react";
 
-import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
 import { HighlightedText } from "@/app/components/ui/highlighted-text";
 import { SectionContainer } from "@/app/components/ui/section-container";
 import type { ProcessSectionData, ProcessStep } from "@/types/homepage";
@@ -13,37 +12,56 @@ interface ProcessSectionProps {
   className?: string;
 }
 
-function ProcessStepCard({ step, index }: { step: ProcessStep; index: number }) {
+function ProcessStepNode({
+  step,
+  index,
+  isLast,
+}: {
+  step: ProcessStep;
+  index: number;
+  isLast: boolean;
+}) {
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 24 }}
+    <motion.li
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{
-        duration: 0.8,
-        delay: 0.08 + index * 0.08,
+        duration: 0.6,
+        delay: 0.06 + index * 0.06,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="relative"
+      className="relative flex gap-6 sm:gap-8"
     >
-      <Card className="h-full">
-        <CardHeader>
-          <div className="mb-2 flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-r from-accent-purple/20 to-accent-pink/20 text-sm font-semibold text-accent-purple">
-              {step.step}
-            </div>
-            <h3 className="text-xl font-semibold leading-tight tracking-tight text-text-primary">
-              {step.title}
-            </h3>
-          </div>
-        </CardHeader>
-        <CardContent className="pt-0">
-          <p className="text-sm leading-relaxed text-text-secondary sm:text-base">
-            {step.description}
-          </p>
-        </CardContent>
-      </Card>
-    </motion.article>
+      {/* Timeline line and dot */}
+      <div className="relative flex shrink-0 flex-col items-center">
+        <div
+          className={clsx(
+            "flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-accent-purple/40 bg-background text-sm font-semibold text-accent-purple shadow-sm",
+            "ring-4 ring-background"
+          )}
+        >
+          {step.step}
+        </div>
+        {!isLast && (
+          <div
+            className="absolute top-11 left-1/2 -translate-x-px w-px flex-1 bg-linear-to-b from-accent-purple/50 to-accent-purple/20"
+            style={{ height: "calc(100% + 1.5rem)" }}
+            aria-hidden
+          />
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="min-w-0 flex-1 pb-12 sm:pb-14">
+        <h3 className="text-lg font-semibold leading-tight tracking-tight text-text-primary sm:text-xl">
+          {step.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-text-secondary sm:text-base">
+          {step.description}
+        </p>
+      </div>
+    </motion.li>
   );
 }
 
@@ -55,7 +73,7 @@ export function ProcessSection({ data, className }: ProcessSectionProps) {
       className={clsx(className)}
       innerClassName="py-16 sm:py-20 lg:py-28"
     >
-      <div aria-labelledby={headingId} className="mx-auto max-w-6xl">
+      <div aria-labelledby={headingId} className="mx-auto max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -90,15 +108,16 @@ export function ProcessSection({ data, className }: ProcessSectionProps) {
           ) : null}
         </motion.div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-12 sm:mt-16" role="list">
           {data.steps.map((step, index) => (
-            <ProcessStepCard
+            <ProcessStepNode
               key={`step-${step.step}-${index}`}
               step={step}
               index={index}
+              isLast={index === data.steps.length - 1}
             />
           ))}
-        </div>
+        </ul>
       </div>
     </SectionContainer>
   );

@@ -7,14 +7,14 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
 import { HighlightedText } from "@/app/components/ui/highlighted-text";
 import { SectionContainer } from "@/app/components/ui/section-container";
-import type { ImageCard, TeamSectionData } from "@/types/homepage";
+import type { TeamMemberCard, TeamSectionData } from "@/types/homepage";
 
 interface TeamSectionProps {
   data: TeamSectionData;
   className?: string;
 }
 
-function TeamCard({ card, index }: { card: ImageCard; index: number }) {
+function TeamCard({ card, index }: { card: TeamMemberCard; index: number }) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -27,25 +27,30 @@ function TeamCard({ card, index }: { card: ImageCard; index: number }) {
       }}
     >
       <Card className="h-full overflow-hidden">
-        <div className="relative h-56 w-full overflow-hidden border-b border-card-border bg-card-bg sm:h-64">
+        <div className="relative h-48 w-full overflow-hidden border-b border-card-border bg-card-bg sm:h-52">
           <Image
-            src={card.image.src}
-            alt={card.image.alt}
+            src={card.avatar.src}
+            alt={card.avatar.alt}
             fill
-            className="object-cover"
+            className="object-cover object-top"
             sizes="(max-width: 640px) 92vw, (max-width: 1024px) 32vw, 360px"
           />
         </div>
         <CardHeader className="pb-2">
+          <p className="text-base font-semibold tracking-tight text-text-primary">
+            {card.name}
+          </p>
           <p className="text-xs font-medium tracking-wide text-text-muted uppercase">
-            {card.location} • {card.year}
+            {card.role}
           </p>
         </CardHeader>
-        <CardContent className="pt-0">
-          <p className="text-sm leading-relaxed text-text-secondary">
-            {card.caption}
-          </p>
-        </CardContent>
+        {card.bio ? (
+          <CardContent className="pt-0">
+            <p className="text-sm leading-relaxed text-text-secondary">
+              {card.bio}
+            </p>
+          </CardContent>
+        ) : null}
       </Card>
     </motion.article>
   );
@@ -77,6 +82,14 @@ export function TeamSection({ data, className }: TeamSectionProps) {
             id={headingId}
             className="text-3xl font-semibold leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
           >
+            {/* {data.highlightedText ? (
+              <HighlightedText
+                text={data.heading}
+                highlight={data.highlightedText}
+              />
+            ) : (
+              data.heading
+            )} */}
             {data.highlightedText ? (
               <HighlightedText
                 text={data.heading}
@@ -88,16 +101,15 @@ export function TeamSection({ data, className }: TeamSectionProps) {
           </h2>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-text-secondary sm:text-base">
-            A tight, senior team of designers, strategists, and operators who
-            work together across time zones to ship thoughtful, AI-accelerated
-            product and brand experiences.
+            Senior designers and operators who ship thoughtful, AI-accelerated
+            product and brand work.
           </p>
         </motion.div>
 
         <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
           {data.cards.map((card, index) => (
             <TeamCard
-              key={`${card.image.src}-${card.location}-${card.year}`}
+              key={`${card.avatar.src}-${card.name}`}
               card={card}
               index={index}
             />
@@ -107,4 +119,3 @@ export function TeamSection({ data, className }: TeamSectionProps) {
     </SectionContainer>
   );
 }
-

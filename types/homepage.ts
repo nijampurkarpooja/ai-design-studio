@@ -1,5 +1,6 @@
 export interface HeroData {
-  headlineImage: string;
+  headline: string;
+  headlineImage?: string;
   eyebrow?: string;
   subtitle: string;
   primaryCta: {
@@ -93,11 +94,13 @@ export interface InsightCard {
 }
 
 export interface FooterData {
-  preFooterText: string;
-  cta: {
-    text: string;
-    href: string;
-  };
+  /** CTA block (merged from CTA section) */
+  eyebrow?: string;
+  heading: string;
+  highlightedText?: string;
+  description?: string;
+  primaryCta: { text: string; href: string };
+  secondaryCta?: { text: string; href: string };
   programInfo: string;
   stats: string;
   navLinks: Array<{ text: string; href: string }>;
@@ -117,11 +120,21 @@ export interface StoryData {
   };
 }
 
+export interface TeamMemberCard {
+  name: string;
+  role: string;
+  bio?: string;
+  avatar: {
+    src: string;
+    alt: string;
+  };
+}
+
 export interface TeamSectionData {
   eyebrow?: string;
   heading: string;
   highlightedText?: string;
-  cards: ImageCard[];
+  cards: TeamMemberCard[];
 }
 
 export interface AIVisionSectionData {
@@ -147,6 +160,8 @@ export interface ConcernsSectionData {
 export interface InsightsSectionData {
   eyebrow?: string;
   heading: string;
+  highlightedText?: string;
+  description?: string;
   insights: InsightCard[];
 }
 

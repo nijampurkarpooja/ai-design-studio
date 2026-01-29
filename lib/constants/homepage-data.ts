@@ -2,7 +2,6 @@ import type {
   AIVisionSectionData,
   ClientLogosData,
   ConcernsSectionData,
-  CTASectionData,
   FooterData,
   HeroData,
   ImageCard,
@@ -17,13 +16,15 @@ import type {
   SocialProofData,
   StatsSectionData,
   StoryData,
+  TeamMemberCard,
   TeamSectionData,
 } from "@/types/homepage";
 
 export const heroData: HeroData = {
-  headlineImage: "/images/hero/hero_headline.png",
+  eyebrow: "Lumen — AI-first design studio",
+  headline: "Design, amplified.",
   subtitle:
-    "We're an AI-first design studio that combines human creativity with cutting-edge AI tools to deliver exceptional design solutions. Faster, smarter, and more innovative than traditional agencies.",
+    "We combine human creativity with AI-native workflows to deliver exceptional product and brand design. Faster, smarter, and built for teams that move fast.",
   primaryCta: {
     text: "Start a project",
     href: "#",
@@ -40,8 +41,7 @@ export const introData: IntroData = {
   highlightedText: "AI-first design studio",
   paragraphs: [
     "The design landscape has fundamentally changed. AI isn't replacing designers—it's amplifying what great designers can achieve. We've built our studio from the ground up to work natively with AI tools, not just use them as an afterthought.",
-    "Our approach combines deep design expertise with cutting-edge AI capabilities. We're not just using AI—we're rethinking workflows, processes, and methodologies to deliver exceptional work faster without compromising on quality or creativity.",
-    "This means our clients get better outcomes, faster delivery, and more innovative solutions. We handle everything from product design to brand identity, all through an AI-enhanced lens that makes us more efficient and more creative.",
+    "Our approach combines deep design expertise with cutting-edge AI capabilities. We rethink workflows and methodologies to deliver exceptional work faster without compromising on quality or creativity.",
   ],
   image: {
     src: "/images/intro/founders.jpg",
@@ -80,9 +80,9 @@ export const socialProofData: SocialProofData = {
   eyebrow: "Why work with us",
   heading: "Built for teams that move fast",
   founder: {
-    name: "10kdesigners Studio",
+    name: "Lumen",
     role: "AI-first design studio",
-    bio: "A tight, senior team shipping polished product and brand work—amplified with AI tools where it makes us faster (without compromising taste or quality).",
+    bio: "Senior team shipping product and brand work—amplified with AI where it makes us faster.",
     avatar: {
       src: "/images/intro/founders.jpg",
       alt: "Studio founders",
@@ -98,33 +98,24 @@ export const socialProofData: SocialProofData = {
   logos: clientLogosData,
 };
 
-export const teamCards: ImageCard[] = [
+export const teamMembers: TeamMemberCard[] = [
   {
-    image: {
-      src: "/images/team/team1.jpg",
-      alt: "Studio workspace",
-    },
-    location: "San Francisco",
-    year: "2026",
-    caption: "Our AI-first design studio",
+    name: "Alex Chen",
+    role: "Lead Product Designer",
+    bio: "10+ years in product and brand. Ships AI-native workflows daily.",
+    avatar: { src: "/images/team/team1.jpg", alt: "Alex Chen" },
   },
   {
-    image: {
-      src: "/images/team/team2.jpg",
-      alt: "Design collaboration",
-    },
-    location: "New York",
-    year: "2026",
-    caption: "Human-AI collaboration in action",
+    name: "Jordan Reese",
+    role: "Senior Brand Designer",
+    bio: "Brand systems and identity. Believes AI frees time for craft.",
+    avatar: { src: "/images/team/team2.jpg", alt: "Jordan Reese" },
   },
   {
-    image: {
-      src: "/images/team/team3.jpg",
-      alt: "Remote studio",
-    },
-    location: "Remote",
-    year: "2026",
-    caption: "Global team, unified vision",
+    name: "Sam Rivera",
+    role: "Design Systems Lead",
+    bio: "Design systems and UI. Makes AI part of the pipeline.",
+    avatar: { src: "/images/team/team3.jpg", alt: "Sam Rivera" },
   },
 ];
 
@@ -132,29 +123,32 @@ export const aiVisionCards: ImageCard[] = [
   {
     image: {
       src: "/images/ai-vision/vision1.jpg",
-      alt: "AI design workflow",
+      alt: "AI-native design workflow in the studio",
     },
-    location: "Studio",
+    location: "Our studio",
     year: "2026",
-    caption: "AI-powered design workflows",
+    caption:
+      "We run AI-native workflows from day one—not bolt-ons. Discovery, ideation, and handoff all speak the same language.",
   },
   {
     image: {
       src: "/images/ai-vision/vision2.jpg",
-      alt: "Rapid prototyping",
+      alt: "Rapid iteration and prototyping with AI",
     },
-    location: "Workshop",
+    location: "Process",
     year: "2026",
-    caption: "Rapid iteration and prototyping",
+    caption:
+      "More directions in less time. We stress-test concepts and refine with AI so we commit to the right direction.",
   },
   {
     image: {
       src: "/images/ai-vision/vision3.jpg",
-      alt: "AI design tools",
+      alt: "AI design tools integrated into practice",
     },
-    location: "Lab",
+    location: "Tooling",
     year: "2026",
-    caption: "Cutting-edge AI design tools",
+    caption:
+      "Curated stack of AI design tools. We adopt what works and drop what doesn’t—so clients get speed and quality.",
   },
 ];
 
@@ -172,11 +166,11 @@ export const insights: InsightCard[] = [
 ];
 
 export const aiVisionSectionData: AIVisionSectionData = {
-  heading:
-    "AI-assisted creativity is the single greatest opportunity in design. But most studios aren't ready.",
-  highlightedText: "But most studios aren't ready.",
+  eyebrow: "Why we do what we do",
+  heading: "Why AI-first design matters for every project",
+  highlightedText: "AI-first design matters",
   description:
-    "While others are still figuring out how to use AI tools, we've built our entire studio around AI-native workflows. We've moved beyond experimentation to proven processes that deliver better results faster. This isn't the future—it's how we work today.",
+    "AI is transforming design, but not by replacing designers—instead, it amplifies what great teams can achieve. Our studio is built on AI-native workflows: more ideas, faster iteration, and better client results.",
   cards: aiVisionCards,
 };
 
@@ -203,7 +197,10 @@ export const concernsSectionData: ConcernsSectionData = {
 
 export const insightsSectionData: InsightsSectionData = {
   eyebrow: "What we've learned",
-  heading: "Design has changed. AI is not the future, it's how we work today.",
+  heading: "Principles we live by—how we work with AI today.",
+  highlightedText: "Principles we live by",
+  description:
+    "These tenets guide how we run the studio and partner with clients. They're always evolving.",
   insights: [
     { text: "AI amplifies great designers, it doesn't replace them." },
     { text: "Speed without quality is meaningless—we deliver both." },
@@ -219,13 +216,20 @@ export const insightsSectionData: InsightsSectionData = {
 };
 
 export const footerData: FooterData = {
-  preFooterText:
-    "Ready to work with an AI-first design studio? Let's create something extraordinary together.",
-  cta: {
+  eyebrow: "Ready to get started?",
+  heading: "Let's create something",
+  highlightedText: "extraordinary together",
+  description:
+    "Launch, rebrand, or get strategic design guidance. We're here to help.",
+  primaryCta: {
     text: "Start a project",
     href: "#",
   },
-  programInfo: "2026 Studio",
+  secondaryCta: {
+    text: "View our work",
+    href: "#",
+  },
+  programInfo: "Lumen · 2026",
   stats: "50+ projects delivered. 98% client satisfaction.",
   navLinks: [
     { text: "Work", href: "/work" },
@@ -240,7 +244,7 @@ export const footerData: FooterData = {
     { name: "Instagram", href: "#", icon: "instagram" },
     { name: "Dribbble", href: "#", icon: "dribbble" },
   ],
-  copyright: "© 2026 10kdesigners Studio. All rights reserved.",
+  copyright: "© 2026 Lumen. All rights reserved.",
 };
 
 export const storyData: StoryData = {
@@ -264,9 +268,9 @@ export const storyData: StoryData = {
 
 export const teamSectionData: TeamSectionData = {
   eyebrow: "The studio",
-  heading: "A tight-knit team of",
+  heading: "A tight-knit team of senior designers",
   highlightedText: "senior designers",
-  cards: teamCards,
+  cards: teamMembers,
 };
 
 export const servicesData: ServicesSectionData = {
@@ -315,13 +319,46 @@ export const servicesData: ServicesSectionData = {
   ],
 };
 
+const portfolioCards: ImageCard[] = [
+  {
+    image: {
+      src: "/images/portfolio/project1.jpg",
+      alt: "Fintech app — dashboard and onboarding",
+    },
+    location: "Product Design",
+    year: "2026",
+    caption:
+      "End-to-end product design for a fintech startup. AI-accelerated exploration led to a clearer dashboard and onboarding flow.",
+  },
+  {
+    image: {
+      src: "/images/portfolio/project2.jpg",
+      alt: "Brand identity and design system",
+    },
+    location: "Brand & Design System",
+    year: "2026",
+    caption:
+      "Brand identity and scalable design system for a B2B SaaS. Delivered in 4 weeks with AI-assisted asset production.",
+  },
+  {
+    image: {
+      src: "/images/portfolio/project3.jpg",
+      alt: "E-commerce experience redesign",
+    },
+    location: "E-commerce",
+    year: "2025",
+    caption:
+      "UX overhaul and visual refresh for an e-commerce client. Higher conversion and faster iteration with AI in the loop.",
+  },
+];
+
 export const portfolioSectionData: PortfolioSectionData = {
   eyebrow: "Featured work",
   heading: "Projects that showcase",
   highlightedText: "AI-enhanced creativity",
   description:
-    "A selection of our recent work demonstrating how AI tools amplify human creativity and accelerate delivery without compromising quality or taste.",
-  cards: aiVisionCards,
+    "Recent work: AI tools amplifying human creativity and faster delivery.",
+  cards: portfolioCards,
 };
 
 export const processSectionData: ProcessSectionData = {
@@ -390,22 +427,6 @@ export const statsData: StatsSectionData = {
       description: "Senior designers and AI specialists",
     },
   ],
-};
-
-export const ctaSectionData: CTASectionData = {
-  eyebrow: "Ready to get started?",
-  heading: "Let's create something",
-  highlightedText: "extraordinary together",
-  description:
-    "Whether you're launching a new product, rebranding, or need strategic design guidance, we're here to help. Our AI-first approach means faster delivery without compromising quality.",
-  primaryCta: {
-    text: "Start a project",
-    href: "#",
-  },
-  secondaryCta: {
-    text: "View our work",
-    href: "#",
-  },
 };
 
 export const teamNetworkSectionData = {

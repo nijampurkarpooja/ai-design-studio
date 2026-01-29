@@ -1,10 +1,9 @@
 "use client";
 
 import clsx from "clsx";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
 import { HighlightedText } from "@/app/components/ui/highlighted-text";
 import { SectionContainer } from "@/app/components/ui/section-container";
 import type { StatCard, StatsSectionData } from "@/types/homepage";
@@ -70,64 +69,30 @@ function AnimatedCounter({ value }: { value: string }) {
   );
 }
 
-function StatCardComponent({ stat, index }: { stat: StatCard; index: number }) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{
-        duration: 0.8,
-        delay: 0.08 + index * 0.08,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
-      <Card className="h-full text-center">
-        <CardHeader>
-          <div className="text-4xl font-bold leading-none text-accent-purple sm:text-5xl lg:text-6xl">
-            <AnimatedCounter value={stat.value} />
-          </div>
-        </CardHeader>
-        <CardContent className="pt-0">
-          <h3 className="mb-2 text-lg font-semibold text-text-primary">
-            {stat.label}
-          </h3>
-          {stat.description ? (
-            <p className="text-sm leading-relaxed text-text-secondary">
-              {stat.description}
-            </p>
-          ) : null}
-        </CardContent>
-      </Card>
-    </motion.article>
-  );
-}
-
 export function StatsSection({ data, className }: StatsSectionProps) {
   const headingId = "stats-heading";
 
   return (
     <SectionContainer
       className={clsx(className)}
-      innerClassName="py-16 sm:py-20 lg:py-28"
+      innerClassName="py-12 sm:py-16 lg:py-20"
     >
-      <div aria-labelledby={headingId} className="mx-auto max-w-6xl">
+      <div aria-labelledby={headingId} className="mx-auto max-w-5xl">
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true, amount: 0.3 }}
-          className="text-center"
         >
           {data.eyebrow ? (
-            <p className="mb-3 text-xs font-medium tracking-[0.22em] text-text-muted uppercase">
+            <p className="mb-2 text-center text-xs font-medium tracking-[0.22em] text-text-muted uppercase">
               {data.eyebrow}
             </p>
           ) : null}
 
           <h2
             id={headingId}
-            className="text-3xl font-semibold leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
+            className="text-center text-2xl font-semibold leading-tight tracking-tight text-text-primary sm:text-3xl"
           >
             {data.highlightedText ? (
               <HighlightedText
@@ -138,17 +103,36 @@ export function StatsSection({ data, className }: StatsSectionProps) {
               data.heading
             )}
           </h2>
-        </motion.div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4">
-          {data.stats.map((stat, index) => (
-            <StatCardComponent
-              key={`${stat.label}-${index}`}
-              stat={stat}
-              index={index}
-            />
-          ))}
-        </div>
+          <div className="mt-8 flex flex-wrap items-stretch justify-center gap-x-10 gap-y-6 border-y border-card-border py-8 sm:mt-10 sm:gap-x-14 sm:py-10 lg:gap-x-16">
+            {data.stats.map((stat, index) => (
+              <motion.div
+                key={`${stat.label}-${index}`}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.05,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="flex min-w-0 flex-1 basis-32 flex-col items-center text-center sm:basis-36"
+              >
+                <div className="text-3xl font-bold leading-none text-accent-purple sm:text-4xl">
+                  <AnimatedCounter value={stat.value} />
+                </div>
+                <p className="mt-1.5 text-sm font-semibold text-text-primary">
+                  {stat.label}
+                </p>
+                {stat.description ? (
+                  <p className="mt-0.5 text-xs leading-relaxed text-text-secondary">
+                    {stat.description}
+                  </p>
+                ) : null}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </SectionContainer>
   );

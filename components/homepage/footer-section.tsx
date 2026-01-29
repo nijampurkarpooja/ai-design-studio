@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 
 import { Button } from "@/app/components/ui/button";
+import { HighlightedText } from "@/app/components/ui/highlighted-text";
 import { SectionContainer } from "@/app/components/ui/section-container";
 import type { FooterData } from "@/types/homepage";
 
@@ -45,28 +46,62 @@ export function FooterSection({ data, className }: FooterSectionProps) {
     <footer className={clsx("relative border-t border-card-border", className)}>
       <SectionContainer innerClassName="py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-4xl">
-          {/* Pre-footer CTA */}
+          {/* CTA block (merged from CTA section) */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true, amount: 0.3 }}
             className="text-center"
           >
-            <p className="mb-6 text-base leading-relaxed text-text-secondary sm:text-lg">
-              {data.preFooterText}
-            </p>
+            {data.eyebrow ? (
+              <p className="mb-4 text-xs font-medium tracking-[0.22em] text-text-muted uppercase">
+                {data.eyebrow}
+              </p>
+            ) : null}
 
-            <motion.div
-              whileHover={{ scale: 1.04, y: -1 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 420, damping: 18 }}
-              className="mb-8"
-            >
-              <Button href={data.cta.href} variant="primary" size="lg">
-                {data.cta.text}
-              </Button>
-            </motion.div>
+            <h2 className="mb-6 text-3xl font-semibold leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+              {data.highlightedText ? (
+                <HighlightedText
+                  text={data.heading}
+                  highlight={data.highlightedText}
+                />
+              ) : (
+                data.heading
+              )}
+            </h2>
+
+            {data.description ? (
+              <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg">
+                {data.description}
+              </p>
+            ) : null}
+
+            <div className="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
+              <motion.div
+                whileHover={{ scale: 1.04, y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 420, damping: 18 }}
+              >
+                <Button
+                  href={data.primaryCta.href}
+                  variant="primary"
+                  size="lg"
+                  className="w-full sm:w-auto"
+                >
+                  {data.primaryCta.text}
+                </Button>
+              </motion.div>
+
+              {data.secondaryCta?.text ? (
+                <Link
+                  href={data.secondaryCta.href}
+                  className="text-sm text-text-muted transition-colors hover:text-text-secondary sm:text-base"
+                >
+                  {data.secondaryCta.text}
+                </Link>
+              ) : null}
+            </div>
 
             <div className="mb-12 space-y-2 text-sm text-text-muted">
               <p>{data.programInfo}</p>

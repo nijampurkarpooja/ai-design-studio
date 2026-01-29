@@ -1,58 +1,89 @@
 "use client";
 
 import clsx from "clsx";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
 
-import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
 import { HighlightedText } from "@/app/components/ui/highlighted-text";
 import { SectionContainer } from "@/app/components/ui/section-container";
 import type { AIVisionSectionData, ImageCard } from "@/types/homepage";
+
+const AUTO_ADVANCE_MS = 10_000;
 
 interface AIVisionSectionProps {
   data: AIVisionSectionData;
   className?: string;
 }
 
-function AIVisionCard({ card, index }: { card: ImageCard; index: number }) {
+function AIVisionSlide({ card }: { card: ImageCard }) {
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{
-        duration: 0.8,
-        delay: 0.08 + index * 0.08,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
-      <Card className="h-full overflow-hidden">
-        <div className="relative h-56 w-full overflow-hidden border-b border-card-border bg-card-bg sm:h-64">
-          <Image
-            src={card.image.src}
-            alt={card.image.alt}
-            fill
-            className="object-cover"
-            sizes="(max-width: 640px) 92vw, (max-width: 1024px) 32vw, 360px"
-          />
-        </div>
-        <CardHeader className="pb-2">
-          <p className="text-xs font-medium tracking-wide text-text-muted uppercase">
-            {card.location} • {card.year}
-          </p>
-        </CardHeader>
-        <CardContent className="pt-0">
-          <p className="text-sm leading-relaxed text-text-secondary">
-            {card.caption}
-          </p>
-        </CardContent>
-      </Card>
-    </motion.article>
+    <div className="flex h-full w-full flex-col">
+      <div className="relative aspect-16/10 w-full overflow-hidden bg-card-bg sm:aspect-video">
+        <Image
+          src={card.image.src}
+          alt={card.image.alt}
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority={false}
+        />
+      </div>
+      <div className="mt-4 flex flex-col gap-1 sm:mt-5">
+        <p className="text-xs font-medium tracking-wide text-text-muted uppercase">
+          {card.location} • {card.year}
+        </p>
+        <p className="text-sm leading-relaxed text-text-secondary sm:text-base">
+          {card.caption}
+        </p>
+      </div>
+    </div>
   );
 }
 
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 80 : -80,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -80 : 80,
+    opacity: 0,
+  }),
+};
+
 export function AIVisionSection({ data, className }: AIVisionSectionProps) {
   const headingId = "ai-vision-heading";
+  const carouselId = "ai-vision-carousel";
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const total = data.cards.length;
+  const currentCard = data.cards[activeIndex];
+
+  const handleDotClick = useCallback(
+    (index: number) => {
+      if (index < 0 || index >= total) return;
+      setDirection(index > activeIndex ? 1 : -1);
+      setActiveIndex(index);
+    },
+    [activeIndex, total]
+  );
+
+  useEffect(() => {
+    if (total <= 1) return;
+    const id = setInterval(() => {
+      setDirection(1);
+      setActiveIndex((prev) => (prev + 1) % total);
+    }, AUTO_ADVANCE_MS);
+    return () => clearInterval(id);
+  }, [total]);
+
+  if (!currentCard) return null;
 
   return (
     <SectionContainer
@@ -94,17 +125,60 @@ export function AIVisionSection({ data, className }: AIVisionSectionProps) {
           ) : null}
         </motion.div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
-          {data.cards.map((card, index) => (
-            <AIVisionCard
-              key={`${card.image.src}-${card.location}-${card.year}`}
-              card={card}
-              index={index}
-            />
-          ))}
+        <div
+          id={carouselId}
+          className="mt-10 w-full sm:mt-12"
+          aria-roledescription="carousel"
+          aria-label="AI vision cards"
+        >
+          <div className="relative w-full overflow-hidden">
+            <AnimatePresence mode="wait" custom={direction} initial={false}>
+              <motion.article
+                key={activeIndex}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 320, damping: 32 },
+                  opacity: { duration: 0.2 },
+                }}
+                className="w-full"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <AIVisionSlide card={currentCard} />
+              </motion.article>
+            </AnimatePresence>
+          </div>
+
+          {total > 1 ? (
+            <div
+              className="mt-8 flex justify-center gap-2"
+              role="tablist"
+              aria-label="Card position"
+            >
+              {data.cards.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  role="tab"
+                  aria-selected={index === activeIndex}
+                  aria-label={`Card ${index + 1} of ${total}`}
+                  onClick={() => handleDotClick(index)}
+                  className={clsx(
+                    "h-2.5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-accent-purple focus:ring-offset-2 focus:ring-offset-background",
+                    index === activeIndex
+                      ? "w-8 bg-accent-purple"
+                      : "w-2.5 bg-text-muted/50 hover:bg-text-muted"
+                  )}
+                />
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </SectionContainer>
   );
 }
-

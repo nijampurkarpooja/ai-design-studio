@@ -56,9 +56,14 @@ function HeroFeaturedCard({ data }: { data: NonNullable<HeroData["featured"]> })
 export function HeroSection({ data }: HeroSectionProps) {
   return (
     <SectionContainer
-      className="overflow-hidden"
-      innerClassName="py-20 sm:py-24 lg:py-28"
+      className="overflow-hidden border-b border-white/5"
+      innerClassName="relative py-28 sm:py-36 lg:py-44"
     >
+      {/* Soft gradient band so hero extends theme but stands out from content below */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-transparent via-accent-purple/10 to-accent-purple/5"
+        aria-hidden
+      />
       <div className="relative z-10">
         <div className="mx-auto w-full max-w-5xl text-center">
           {data.eyebrow ? (
@@ -66,7 +71,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-4 text-xs font-medium tracking-[0.22em] text-text-muted uppercase"
+              className="mb-5 text-sm font-medium tracking-[0.24em] text-text-muted uppercase sm:mb-6"
             >
               {data.eyebrow}
             </motion.p>
@@ -76,32 +81,27 @@ export function HeroSection({ data }: HeroSectionProps) {
             initial={{ opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-6 sm:mb-8"
+            className="relative mb-8 sm:mb-10"
           >
-            {data.headlineImage ? (
-              <div className="relative mx-auto h-auto w-full max-w-6xl px-2 sm:px-6">
-                <Image
-                  src={data.headlineImage}
-                  alt="The Internet's Design School"
-                  width={1200}
-                  height={400}
-                  priority
-                  className="mx-auto h-auto w-full max-w-3xl"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
-                />
-              </div>
-            ) : (
-              <h1 className="px-4 text-4xl font-bold leading-tight tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-7xl">
-                The Internet&apos;s Design School
-              </h1>
-            )}
+            <h1
+              className="px-4 text-5xl font-extrabold leading-[1.05] tracking-tight text-text-primary drop-shadow-[0_0_40px_rgba(168,85,247,0.15)] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl"
+              style={{ fontFamily: "var(--font-syne), var(--font-geist-sans)" }}
+            >
+              <span className="bg-linear-to-b from-white via-white to-white/90 bg-clip-text text-transparent">
+                {data.headline}
+              </span>
+            </h1>
+            <div
+              className="mx-auto mt-4 h-1 w-24 rounded-full bg-linear-to-r from-accent-purple via-accent-pink to-accent-purple opacity-90 sm:mt-5 sm:h-1.5 sm:w-28"
+              aria-hidden
+            />
           </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mb-8 max-w-2xl px-4 text-base leading-relaxed text-text-muted sm:text-lg md:text-xl"
+            className="mx-auto mb-10 max-w-2xl px-4 text-base leading-relaxed text-text-muted sm:mb-12 sm:text-lg md:text-xl"
           >
             {data.subtitle}
           </motion.p>
@@ -143,7 +143,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true, amount: 0.25 }}
-            className="mt-12 sm:mt-16"
+            className="mt-14 sm:mt-18"
           >
             <HeroFeaturedCard data={data.featured} />
           </motion.div>
