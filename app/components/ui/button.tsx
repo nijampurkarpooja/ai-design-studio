@@ -60,7 +60,7 @@ export function Button(props: ButtonProps) {
       props.children
     );
 
-  if ("href" in rest) {
+  if ("href" in rest && rest.href) {
     const { href, disabled, ...linkProps } = rest;
 
     if (disabled) {
@@ -81,8 +81,10 @@ export function Button(props: ButtonProps) {
     );
   }
 
+  // Type guard to ensure rest is ButtonAsButtonProps
+  const buttonProps = rest as React.ButtonHTMLAttributes<HTMLButtonElement>;
   return (
-    <button className={classes} type="button" {...rest}>
+    <button className={classes} type="button" {...buttonProps}>
       {children}
     </button>
   );
